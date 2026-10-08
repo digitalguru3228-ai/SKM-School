@@ -1,0 +1,6 @@
+{
+  "name": "SKM High School & Higher Secondary School, Kanodar",
+  "description": "Official institutional portal for SKM High School & Higher Secondary School, Kanodar (Managed by Sarvoday Kelavani Mandal). Empowering minds since 1956.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
