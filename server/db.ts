@@ -276,9 +276,9 @@ try {
 }
 
 function getInitialData(): DatabaseState {
-  // Pre-hashed password for initial super admin: admin@skm1956
-  const salt = bcrypt.genSaltSync(10);
-  const password_hash = bcrypt.hashSync('admin@skm1956', salt);
+  // Precomputed bcrypt hash for initial super admin: admin@skm1956
+  // Eliminates synchronous CPU salt generation on serverless cold starts
+  const password_hash = '$2b$10$VqXxELUqCUm92XSLWhz7feMhzlAwQ.M0qbO2r6AzEp7lVjon2aSA2';
 
   const initialUsers: User[] = [
     {
@@ -679,9 +679,12 @@ class DatabaseManager {
 
   private saveDataDirect(data: DatabaseState) {
     try {
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
       fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
     } catch (err) {
-      console.error('[DB] Error persisting database file:', err);
+      console.warn('[DB] Non-critical: Could not persist database file in current environment:', err);
     }
   }
 
