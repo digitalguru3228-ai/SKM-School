@@ -45,11 +45,11 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
 
   const getStreamIcon = (iconName: string) => {
     switch (iconName) {
-      case 'BookOpen': return <BookOpen className="w-6 h-6" />;
-      case 'Atom': return <Atom className="w-6 h-6" />;
-      case 'Briefcase': return <Briefcase className="w-6 h-6" />;
-      case 'Users': return <Users className="w-6 h-6" />;
-      default: return <GraduationCap className="w-6 h-6" />;
+      case 'BookOpen': return <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />;
+      case 'Atom': return <Atom className="w-5 h-5 sm:w-6 sm:h-6" />;
+      case 'Briefcase': return <Briefcase className="w-5 h-5 sm:w-6 sm:h-6" />;
+      case 'Users': return <Users className="w-5 h-5 sm:w-6 sm:h-6" />;
+      default: return <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />;
     }
   };
 
@@ -66,7 +66,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
   return (
     <section 
       id="academics" 
-      className={`py-20 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
         isDark ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'
       }`}
     >
@@ -77,8 +77,8 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Curriculum & Streams</span>
           </div>
@@ -91,26 +91,26 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
         </div>
 
         {/* 4 Interactive Program Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-8 sm:mb-10">
           {streams.map((stream) => {
             const isSelected = selectedStreamId === stream.id;
             return (
               <div
                 key={stream.id}
                 onClick={() => setSelectedStreamId(stream.id)}
-                className={`p-6 rounded-2xl cursor-pointer transition-all duration-300 relative text-left group ${
+                className={`interactive-card p-5 sm:p-6 rounded-2xl cursor-pointer relative text-left group ${
                   isSelected
                     ? isDark
-                      ? 'bg-slate-950 border-2 border-amber-400 shadow-xl shadow-amber-500/20 -translate-y-1.5'
-                      : 'bg-white border-2 border-amber-600 shadow-lg -translate-y-1.5'
+                      ? 'bg-slate-950 border-2 border-amber-400 shadow-xl shadow-amber-500/20 -translate-y-1'
+                      : 'bg-white border-2 border-amber-600 shadow-lg -translate-y-1'
                     : isDark
-                      ? 'bg-slate-950/60 border border-slate-800 hover:border-slate-700 hover:bg-slate-950/80'
-                      : 'bg-white border border-slate-200 hover:border-amber-300 shadow-2xs hover:shadow-sm'
+                      ? 'bg-slate-950/70 border border-slate-800 hover:border-slate-700'
+                      : 'bg-white border border-slate-200 hover:border-amber-300 shadow-xs hover:shadow-sm'
                 }`}
               >
                 {/* Badge */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
+                <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+                  <span className={`text-[10px] sm:text-[11px] font-extrabold px-2.5 py-0.5 rounded-full ${
                     isSelected 
                       ? 'bg-amber-500 text-slate-950' 
                       : isDark
@@ -125,7 +125,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </div>
 
                 {/* Icon */}
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${
+                <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4 transition-transform group-hover:scale-105 ${
                   isSelected 
                     ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 shadow-md' 
                     : isDark
@@ -136,14 +136,14 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </div>
 
                 {/* Stream Title */}
-                <h3 className={`text-lg font-bold leading-tight mb-1 transition-colors ${
+                <h3 className={`text-base sm:text-lg font-bold leading-tight mb-1 transition-colors ${
                   isDark 
                     ? 'text-white group-hover:text-amber-300' 
                     : 'text-slate-950 group-hover:text-amber-700'
                 }`}>
                   {stream.title}
                 </h3>
-                <p className={`text-xs font-semibold mb-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                <p className={`text-xs font-semibold mb-2.5 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                   {stream.subtitle}
                 </p>
 
@@ -153,11 +153,11 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </p>
 
                 {/* Action Link */}
-                <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs font-semibold ${
+                <div className={`mt-3 pt-3 border-t flex items-center justify-between text-xs font-semibold ${
                   isDark ? 'border-slate-800/80' : 'border-slate-200'
                 }`}>
-                  <span className={isSelected ? 'text-amber-600 dark:text-amber-400 font-bold' : isDark ? 'text-slate-400 group-hover:text-slate-200' : 'text-slate-600 group-hover:text-slate-950'}>
-                    {isSelected ? 'Currently Viewing' : 'Explore Curriculum'}
+                  <span className={isSelected ? 'text-amber-600 dark:text-amber-400 font-extrabold' : isDark ? 'text-slate-400 group-hover:text-slate-200' : 'text-slate-600 group-hover:text-slate-950'}>
+                    {isSelected ? 'Currently Viewing' : 'Explore Stream'}
                   </span>
                   <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'translate-x-1 text-amber-600 dark:text-amber-400' : 'text-slate-400 group-hover:translate-x-0.5'}`} />
                 </div>
@@ -168,7 +168,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
 
         {/* Deep Dive Focused Card on Selected Stream */}
         {activeStream && (
-          <div className={`rounded-3xl p-6 sm:p-10 border shadow-2xl backdrop-blur-md ${
+          <div className={`rounded-3xl p-5 sm:p-8 md:p-10 border shadow-2xl backdrop-blur-md animate-scale-in ${
             isDark 
               ? 'bg-slate-950 border-amber-500/40 text-white' 
               : 'bg-white border-slate-200 text-slate-900 shadow-slate-900/5'
@@ -183,7 +183,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                     {getStreamIcon(activeStream.icon)}
                   </span>
                   <div>
-                    <h3 className={`text-2xl sm:text-3xl font-extrabold ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                    <h3 className={`text-xl sm:text-2xl md:text-3xl font-extrabold ${isDark ? 'text-white' : 'text-slate-950'}`}>
                       {activeStream.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-amber-700 dark:text-amber-400 font-bold">
@@ -193,10 +193,10 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
                 <button
                   onClick={handleDownloadSyllabus}
-                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer ${
+                  className={`touch-target inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold border transition-colors cursor-pointer active:scale-95 w-full sm:w-auto ${
                     downloaded
                       ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
                       : isDark
@@ -204,13 +204,13 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                         : 'text-slate-800 bg-slate-100 hover:bg-slate-200 border-slate-300'
                   }`}
                 >
-                  <Download className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500" />
-                  <span>{downloaded ? 'Syllabus Downloaded' : 'Download Syllabus (PDF)'}</span>
+                  <Download className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{downloaded ? 'Syllabus Saved' : 'Download Syllabus (PDF)'}</span>
                 </button>
 
                 <button
                   onClick={onOpenAdmission}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-md transition-all cursor-pointer"
+                  className="shimmer-btn touch-target inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-extrabold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer w-full sm:w-auto"
                 >
                   <span>Apply for this Stream</span>
                   <ChevronRight className="w-4 h-4" />
@@ -218,12 +218,12 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
               </div>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 text-left">
               
               {/* Left: Description & Subject List */}
-              <div className="lg:col-span-7 space-y-6">
+              <div className="lg:col-span-7 space-y-5 sm:space-y-6">
                 <div>
-                  <h4 className={`text-sm uppercase font-bold tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-700'}`}>
+                  <h4 className={`text-xs uppercase font-bold tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-700'}`}>
                     Program Overview & Objectives
                   </h4>
                   <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
@@ -232,11 +232,11 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </div>
 
                 <div>
-                  <h4 className={`text-sm uppercase font-bold tracking-wider mb-3 flex items-center gap-1.5 ${isDark ? 'text-slate-400' : 'text-slate-700'}`}>
-                    <BookOpen className="w-4 h-4 text-amber-600 dark:text-amber-500" />
+                  <h4 className={`text-xs uppercase font-bold tracking-wider mb-3 flex items-center gap-1.5 ${isDark ? 'text-slate-400' : 'text-slate-700'}`}>
+                    <BookOpen className="w-4 h-4 text-amber-500" />
                     Key Subjects & Laboratory Modules
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                     {activeStream.subjects?.map((sub: string, idx: number) => (
                       <div 
                         key={idx} 
@@ -246,7 +246,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                             : 'bg-slate-50 border-slate-200 text-slate-800'
                         }`}
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500 shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                         <span>{sub}</span>
                       </div>
                     ))}
@@ -255,17 +255,17 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
               </div>
 
               {/* Right: Key Features & Career Outcomes */}
-              <div className="lg:col-span-5 space-y-6">
+              <div className="lg:col-span-5 space-y-5 sm:space-y-6">
                 
                 {/* Key Institutional Features */}
-                <div className={`p-5 rounded-2xl border ${
+                <div className={`p-4 sm:p-5 rounded-2xl border ${
                   isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-50 border-slate-200'
                 }`}>
-                  <h4 className="text-xs uppercase font-bold tracking-wider text-amber-700 dark:text-amber-400 mb-3 flex items-center gap-1.5">
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-amber-600 dark:text-amber-400 mb-3 flex items-center gap-1.5">
                     <Award className="w-3.5 h-3.5" />
                     Pedagogical Highlights
                   </h4>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-2">
                     {keyFeatures.map((feat: string, idx: number) => (
                       <li key={idx} className={`flex items-start gap-2 text-xs leading-normal ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
@@ -276,7 +276,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                 </div>
 
                 {/* Career & Future Pathways */}
-                <div className={`p-5 rounded-2xl border ${
+                <div className={`p-4 sm:p-5 rounded-2xl border ${
                   isDark 
                     ? 'bg-gradient-to-br from-slate-900 to-amber-950/40 border-amber-500/20' 
                     : 'bg-amber-50/60 border-amber-200'
@@ -284,7 +284,7 @@ export const AcademicsSection: React.FC<AcademicsSectionProps> = ({
                   <h4 className={`text-xs uppercase font-bold tracking-wider mb-2 flex items-center gap-1.5 ${
                     isDark ? 'text-white' : 'text-slate-950'
                   }`}>
-                    <Target className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500" />
+                    <Target className="w-3.5 h-3.5 text-amber-500" />
                     Alumni Career Pathways
                   </h4>
                   <div className="flex flex-wrap gap-1.5 mt-2">

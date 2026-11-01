@@ -11,7 +11,7 @@ import {
   CheckCircle2, 
   Share2, 
   Pin,
-  RefreshCw
+  Sparkles
 } from 'lucide-react';
 import { ANNOUNCEMENTS } from '../data/schoolData';
 import { Announcement } from '../types';
@@ -105,7 +105,7 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
   return (
     <section 
       id="announcements" 
-      className={`py-20 relative transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative transition-colors duration-300 ${
         isDark ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'
       }`}
     >
@@ -116,9 +116,9 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Title Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Bell className="w-3.5 h-3.5 animate-bounce" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <Bell className="w-3.5 h-3.5 text-amber-500" />
             <span>Official Circulars & Notice Board</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -130,24 +130,24 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
         </div>
 
         {/* Filter Controls & Search Bar */}
-        <div className={`p-4 sm:p-5 rounded-2xl border mb-8 backdrop-blur-md ${
+        <div className={`p-3.5 sm:p-5 rounded-2xl border mb-8 sm:mb-10 backdrop-blur-md ${
           isDark 
             ? 'bg-slate-950/80 border-slate-800' 
             : 'bg-white border-slate-200 shadow-sm'
         }`}>
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 sm:gap-4">
             
             {/* Category Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 md:pb-0 scrollbar-none snap-x">
               {categories.map((cat) => {
                 const isActive = selectedCategory === cat;
                 return (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                    className={`touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer snap-start active:scale-95 ${
                       isActive
-                        ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
+                        ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-extrabold'
                         : isDark
                           ? 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
                           : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
@@ -160,23 +160,24 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
             </div>
 
             {/* Search Input Box */}
-            <div className="relative min-w-[260px]">
-              <Search className={`w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-400' : 'text-slate-400'}`} />
+            <div className="relative min-w-[240px] sm:min-w-[280px]">
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search circulars, ref numbers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2 text-xs rounded-xl border focus:outline-none transition-all ${
+                className={`w-full pl-10 pr-9 py-2.5 text-xs rounded-xl border focus:outline-none transition-all ${
                   isDark
                     ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400'
-                    : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                    : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                 }`}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 p-0.5 cursor-pointer"
+                  title="Clear Search"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -184,44 +185,59 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
             </div>
 
           </div>
+
+          {/* Active count summary */}
+          <div className="mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>
+              Showing <strong className="text-amber-500">{filteredAnnouncements.length}</strong> Circulars
+            </span>
+            {(selectedCategory !== 'All' || searchQuery) && (
+              <button
+                onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
+                className="text-amber-600 dark:text-amber-400 hover:underline font-semibold cursor-pointer"
+              >
+                Reset Filters
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Announcements Cards Grid */}
         {filteredAnnouncements.length === 0 ? (
-          <div className={`text-center py-16 rounded-2xl border ${
+          <div className={`text-center py-16 px-4 rounded-3xl border ${
             isDark ? 'bg-slate-950/50 border-slate-800' : 'bg-white border-slate-200'
           }`}>
-            <AlertCircle className="w-10 h-10 mx-auto text-amber-400 mb-3 opacity-80" />
+            <AlertCircle className="w-10 h-10 mx-auto text-amber-500 mb-3 opacity-80" />
             <h3 className="text-base font-bold">No announcements found</h3>
-            <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+            <p className={`text-xs mt-1 max-w-sm mx-auto ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
               Try clearing your search query or choosing another category filter.
             </p>
             <button
               onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
-              className="mt-4 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-semibold text-xs"
+              className="mt-4 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shadow-md transition-transform active:scale-95 cursor-pointer"
             >
               Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {filteredAnnouncements.map((item) => {
               const isUrgent = item.isUrgent;
               const isPinned = item.isPinned;
               return (
                 <div
                   key={item.id}
-                  className={`flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1 ${
+                  className={`interactive-card flex flex-col justify-between p-5 sm:p-6 rounded-2xl border transition-all duration-300 group ${
                     isDark
                       ? 'bg-slate-950/80 border-slate-800/90 hover:border-amber-500/40 shadow-xl shadow-slate-950/40'
-                      : 'bg-white border-slate-200/90 hover:border-amber-500/40 shadow-sm hover:shadow-md'
+                      : 'bg-white border-slate-200 hover:border-amber-500/40 shadow-xs hover:shadow-md'
                   }`}
                 >
                   {/* Top Metadata */}
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider ${
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
                           item.category === 'Admissions' 
                             ? 'bg-emerald-500/15 text-emerald-500 dark:text-emerald-300 border border-emerald-500/30' 
                             : item.category === 'Exams'
@@ -239,19 +255,19 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
                         )}
                         {isUrgent && (
                           <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-500 dark:text-rose-300 border border-rose-500/30 animate-pulse">
-                            Active / Urgent
+                            Active
                           </span>
                         )}
                       </div>
-                      <span className={`text-[11px] flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        <Calendar className="w-3 h-3" />
+                      <span className={`text-[11px] font-medium flex items-center gap-1 shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                        <Calendar className="w-3 h-3 text-amber-500" />
                         {item.date}
                       </span>
                     </div>
 
                     {/* Reference number */}
                     {item.refNo && (
-                      <p className={`text-[11px] font-mono mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <p className={`text-[10px] font-mono mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         Ref: {item.refNo}
                       </p>
                     )}
@@ -277,7 +293,7 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
                   }`}>
                     <button
                       onClick={() => setActiveAnnouncement(item)}
-                      className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors cursor-pointer ${
+                      className={`touch-target inline-flex items-center gap-1 text-xs font-bold transition-colors cursor-pointer ${
                         isDark ? 'text-amber-400 hover:text-amber-300' : 'text-amber-600 hover:text-amber-700'
                       }`}
                     >
@@ -287,19 +303,19 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
 
                     <button
                       onClick={() => handleDownload(item)}
-                      className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      className={`touch-target flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
                         downloadSuccess === item.id
                           ? 'bg-emerald-500/20 text-emerald-500 dark:text-emerald-300 border border-emerald-500/40'
                           : isDark
                             ? 'bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800'
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300'
                       }`}
                       title="Download official PDF copy"
                     >
                       {downloadSuccess === item.id ? (
                         <>
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-[11px]">Downloaded</span>
+                          <span className="text-[11px] font-bold">Saved!</span>
                         </>
                       ) : (
                         <>
@@ -320,19 +336,19 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
 
       {/* Full Circular View Modal */}
       {activeAnnouncement && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-scale-in">
           <div 
-            className={`w-full max-w-2xl rounded-2xl border shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 ${
+            className={`w-full max-w-2xl rounded-3xl border shadow-2xl overflow-hidden max-h-[90vh] flex flex-col ${
               isDark ? 'bg-slate-900 border-slate-700 text-white' : 'bg-white border-slate-200 text-slate-900'
             }`}
           >
             {/* Modal Header */}
-            <div className={`p-5 sm:p-6 border-b flex items-start justify-between gap-4 ${
-              isDark ? 'bg-slate-950/60 border-slate-800' : 'bg-slate-50 border-slate-200'
+            <div className={`p-4 sm:p-6 border-b flex items-start justify-between gap-4 ${
+              isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-slate-50 border-slate-200'
             }`}>
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase bg-amber-500 text-slate-950">
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase bg-amber-500 text-slate-950">
                     {activeAnnouncement.category}
                   </span>
                   {activeAnnouncement.isUrgent && (
@@ -348,33 +364,34 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
                   {activeAnnouncement.title}
                 </h3>
                 {activeAnnouncement.refNo && (
-                  <p className={`text-xs font-mono mt-1 ${isDark ? 'text-amber-400/90' : 'text-amber-700'}`}>
+                  <p className={`text-xs font-mono mt-1 ${isDark ? 'text-amber-400' : 'text-amber-700'}`}>
                     Official Dispatch Ref: {activeAnnouncement.refNo}
                   </p>
                 )}
               </div>
               <button
                 onClick={() => setActiveAnnouncement(null)}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`touch-target p-2 rounded-xl transition-colors cursor-pointer ${
                   isDark ? 'hover:bg-slate-800 text-slate-400 hover:text-white' : 'hover:bg-slate-200 text-slate-600'
                 }`}
+                aria-label="Close Announcement Dialog"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Body */}
-            <div className="p-5 sm:p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-              <div className={`p-4 rounded-xl border text-xs sm:text-sm leading-relaxed ${
-                isDark ? 'bg-slate-950/50 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-200 text-slate-700'
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
+              <div className={`p-4 rounded-2xl border text-xs sm:text-sm leading-relaxed ${
+                isDark ? 'bg-slate-950/60 border-slate-800 text-slate-200' : 'bg-slate-50 border-slate-200 text-slate-700'
               }`}>
-                <p className="font-semibold mb-2">Official Circular Summary:</p>
+                <p className="font-bold mb-1.5 text-amber-500">Official Circular Summary:</p>
                 <p>{activeAnnouncement.summary}</p>
               </div>
 
               {activeAnnouncement.fullContent && (
                 <div className="space-y-2">
-                  <h4 className="text-xs uppercase font-bold tracking-wider text-amber-500">
+                  <h4 className="text-xs uppercase font-extrabold tracking-wider text-amber-500">
                     Detailed Notification Text
                   </h4>
                   <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -383,51 +400,39 @@ export const AnnouncementsSection: React.FC<AnnouncementsSectionProps> = ({ them
                 </div>
               )}
 
-              {/* Institution Seal footer */}
-              <div className={`p-3.5 rounded-xl border flex items-center justify-between text-xs ${
-                isDark ? 'bg-slate-950/80 border-slate-800/80 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-600'
+              {/* Official Seal Badge */}
+              <div className={`p-3.5 rounded-2xl border flex items-center justify-between text-xs ${
+                isDark ? 'bg-slate-950/40 border-slate-800' : 'bg-amber-50/50 border-amber-200/60'
               }`}>
-                <div>
-                  <p className="font-semibold text-slate-800 dark:text-slate-200">Sarvoday Kelavani Mandal, Kanodar</p>
-                  <p className="text-[11px]">SKM High School Administrative Office</p>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <span className="font-semibold">Issued by Office of the Principal, SKM High School Kanodar</span>
                 </div>
-                <div className="text-right">
-                  <span className="inline-block px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400">
-                    Digitally Verified
-                  </span>
-                </div>
+                <span className="font-mono text-[11px] text-slate-400">GSEB Accredited</span>
               </div>
             </div>
 
-            {/* Modal Footer Actions */}
+            {/* Modal Footer */}
             <div className={`p-4 sm:p-5 border-t flex flex-wrap items-center justify-between gap-3 ${
-              isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200'
+              isDark ? 'bg-slate-950/70 border-slate-800' : 'bg-slate-50 border-slate-200'
             }`}>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleShare(activeAnnouncement)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold border transition-colors ${
-                    copiedLink
-                      ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
-                      : isDark
-                        ? 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
-                        : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-300'
-                  }`}
-                >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>{copiedLink ? 'Copied Details' : 'Share Notice'}</span>
-                </button>
-              </div>
+              <button
+                onClick={() => handleShare(activeAnnouncement)}
+                className={`touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors cursor-pointer ${
+                  isDark ? 'bg-slate-800 text-slate-300 hover:text-white border-slate-700' : 'bg-white text-slate-700 hover:text-slate-900 border-slate-300'
+                }`}
+              >
+                <Share2 className="w-4 h-4 text-amber-500" />
+                <span>{copiedLink ? 'Link Copied!' : 'Share Circular'}</span>
+              </button>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleDownload(activeAnnouncement)}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md transition-all cursor-pointer"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download Circular ({activeAnnouncement.fileSize || 'PDF'})</span>
-                </button>
-              </div>
+              <button
+                onClick={() => handleDownload(activeAnnouncement)}
+                className="touch-target inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 active:scale-95 transition-transform cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>Download Official Circular PDF</span>
+              </button>
             </div>
 
           </div>

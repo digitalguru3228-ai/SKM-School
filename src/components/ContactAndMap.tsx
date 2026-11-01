@@ -9,7 +9,8 @@ import {
   CheckCircle2, 
   ExternalLink, 
   Building,
-  Navigation
+  Navigation,
+  Copy
 } from 'lucide-react';
 import { SCHOOL_INFO } from '../data/schoolData';
 
@@ -28,6 +29,7 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
 
   const [isSent, setIsSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [copiedAddress, setCopiedAddress] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,12 +40,20 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
     }, 700);
   };
 
+  const handleCopyAddress = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(`${SCHOOL_INFO.shortName}, ${SCHOOL_INFO.plusCode}`);
+      setCopiedAddress(true);
+      setTimeout(() => setCopiedAddress(false), 2000);
+    }
+  };
+
   const isDark = theme === 'dark';
 
   return (
     <section 
       id="contact" 
-      className={`py-20 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
         isDark ? 'bg-slate-950 text-white' : 'bg-slate-100/80 text-slate-900'
       }`}
     >
@@ -53,8 +63,8 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
             <MapPin className="w-3.5 h-3.5" />
             <span>Location & Contact</span>
           </div>
@@ -66,23 +76,33 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
           {/* Left Column: Contact Cards & Office Timings */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 text-left">
             
             {/* Contact Details Grid */}
-            <div className={`p-6 rounded-3xl border shadow-xl space-y-5 ${
+            <div className={`p-5 sm:p-6 rounded-3xl border shadow-xl space-y-5 ${
               isDark 
                 ? 'bg-slate-900/90 border-amber-500/30 text-white' 
                 : 'bg-white border-slate-200 text-slate-900 shadow-slate-900/5'
             }`}>
-              <h3 className={`text-lg font-bold border-b pb-3 flex items-center gap-2 ${
-                isDark ? 'border-slate-800 text-white' : 'border-slate-100 text-slate-900'
-              }`}>
-                <Building className="w-4 h-4 text-amber-500" />
-                <span>Official Contact Information</span>
-              </h3>
+              <div className="flex items-center justify-between border-b pb-3">
+                <h3 className={`text-base sm:text-lg font-bold flex items-center gap-2 ${
+                  isDark ? 'text-white' : 'text-slate-900'
+                }`}>
+                  <Building className="w-4 h-4 text-amber-500" />
+                  <span>Official Contact Information</span>
+                </h3>
+                <button
+                  onClick={handleCopyAddress}
+                  className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1 cursor-pointer"
+                  title="Copy Campus Address"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>{copiedAddress ? 'Copied!' : 'Copy Address'}</span>
+                </button>
+              </div>
 
               {/* Address */}
               <div className="flex items-start gap-3.5">
@@ -134,7 +154,9 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                   <p className={`text-xs uppercase font-bold tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                     Email & Web Portal
                   </p>
-                  <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">{SCHOOL_INFO.email}</p>
+                  <a href={`mailto:${SCHOOL_INFO.email}`} className="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline">
+                    {SCHOOL_INFO.email}
+                  </a>
                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{SCHOOL_INFO.website}</p>
                 </div>
               </div>
@@ -160,7 +182,7 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
             </div>
 
             {/* Directions Action Card */}
-            <div className={`p-5 rounded-2xl border flex items-center justify-between gap-4 ${
+            <div className={`interactive-card p-5 rounded-2xl border flex items-center justify-between gap-4 ${
               isDark 
                 ? 'bg-gradient-to-r from-amber-500/15 via-slate-900 to-amber-500/15 border-amber-500/30' 
                 : 'bg-white border-slate-200 shadow-sm'
@@ -177,7 +199,7 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                 href="https://maps.google.com/?q=39VX+33X+Kanodar+Gujarat+385520"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition-colors shrink-0 cursor-pointer"
+                className="touch-target inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition-colors shrink-0 cursor-pointer active:scale-95"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Get Directions</span>
@@ -187,7 +209,7 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
           </div>
 
           {/* Right Column: Interactive Map & Quick Message */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
             
             {/* Embedded Google Map Frame */}
             <div className="rounded-3xl overflow-hidden border border-amber-500/30 bg-slate-900 shadow-2xl relative aspect-[16/9] sm:aspect-[21/9]">
@@ -205,12 +227,12 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
             </div>
 
             {/* Quick Inquiry Form */}
-            <div className={`border rounded-3xl p-6 sm:p-8 shadow-xl text-left ${
+            <div className={`border rounded-3xl p-5 sm:p-8 shadow-xl text-left ${
               isDark 
                 ? 'bg-slate-900/90 border-slate-800 text-white' 
                 : 'bg-white border-slate-200 text-slate-900 shadow-slate-900/5'
             }`}>
-              <h3 className={`text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <h3 className={`text-base sm:text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Send an Administrative Inquiry
               </h3>
               <p className={`text-xs mb-5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -218,22 +240,20 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
               </p>
 
               {isSent ? (
-                <div className="p-6 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-center space-y-2 animate-in fade-in">
+                <div className="p-6 text-center space-y-3 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl animate-scale-in">
                   <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
-                  <h4 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    Message Dispatched Successfully
-                  </h4>
+                  <h4 className="text-sm font-bold text-emerald-500">Inquiry Received</h4>
                   <p className={`text-xs max-w-sm mx-auto ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                    Thank you, {formState.name}. The school office has received your note and will contact you at {formState.phone}.
+                    Thank you, {formState.name || 'Visitor'}. The school administration will contact you shortly.
                   </p>
                   <button
                     onClick={() => {
                       setIsSent(false);
                       setFormState({ name: '', phone: '', email: '', subject: 'General Inquiry', message: '' });
                     }}
-                    className="mt-2 text-xs font-bold text-amber-500 hover:underline cursor-pointer"
+                    className="text-xs text-amber-500 hover:underline font-bold mt-2 cursor-pointer"
                   >
-                    Send Another Inquiry &rarr;
+                    Send Another Message
                   </button>
                 </div>
               ) : (
@@ -246,16 +266,17 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Salim Vahora"
+                        placeholder="e.g. Asifbhai Patel"
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
+
                     <div>
                       <label className={`block text-xs font-semibold mb-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                         Mobile Number *
@@ -266,10 +287,10 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                         placeholder="e.g. 9876543210"
                         value={formState.phone}
                         onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -278,56 +299,57 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={`block text-xs font-semibold mb-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                        Email Address
+                        Email Address (Optional)
                       </label>
                       <input
                         type="email"
-                        placeholder="e.g. name@example.com"
+                        placeholder="e.g. asif@example.com"
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
+
                     <div>
                       <label className={`block text-xs font-semibold mb-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                        Inquiry Topic
+                        Inquiry Topic *
                       </label>
                       <select
                         value={formState.subject}
                         onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs cursor-pointer ${
                           isDark 
                             ? 'bg-slate-950 border-slate-700 text-white focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 focus:border-amber-500 focus:bg-white'
                         }`}
                       >
                         <option value="General Inquiry">General School Inquiry</option>
-                        <option value="Admission Question">Admission 2026–27 Inquiry</option>
-                        <option value="Scholarship Query">Scholarship & Fee Concession</option>
-                        <option value="Board Verification">Board Marksheet / LC Verification</option>
-                        <option value="Alumni Connection">Alumni Association & Visits</option>
+                        <option value="Admissions">Admissions & Eligibility</option>
+                        <option value="Scholarships">Scholarships & Fee Concession</option>
+                        <option value="Hostel & Transport">Hostel & Student Transport</option>
+                        <option value="Alumni Matters">Alumni & Trust Matters</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-semibold mb-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                      Your Message / Question *
+                      Your Message or Question *
                     </label>
                     <textarea
                       required
                       rows={3}
-                      placeholder="Please write your inquiry here..."
+                      placeholder="Please mention your question or student grade details..."
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      className={`w-full px-3.5 py-2.5 rounded-xl border text-xs focus:outline-none resize-none ${
+                      className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs resize-none ${
                         isDark 
                           ? 'bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                          : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                          : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                       }`}
                     />
                   </div>
@@ -335,19 +357,23 @@ export const ContactAndMap: React.FC<ContactAndMapProps> = ({ theme = 'dark' }) 
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-bold text-xs text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-lg shadow-amber-500/20 transition-all cursor-pointer disabled:opacity-70"
+                    className="shimmer-btn touch-target w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-bold text-xs text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-md shadow-amber-500/20 transition-all cursor-pointer disabled:opacity-70 active:scale-98"
                   >
                     {isSending ? (
-                      <span>Sending Inquiry...</span>
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                        <span>Sending Inquiry...</span>
+                      </>
                     ) : (
                       <>
                         <Send className="w-3.5 h-3.5" />
-                        <span>Send Message to School Office</span>
+                        <span>Send Message to Office</span>
                       </>
                     )}
                   </button>
                 </form>
               )}
+
             </div>
 
           </div>

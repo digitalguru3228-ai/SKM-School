@@ -9,7 +9,8 @@ import {
   Users, 
   TrendingUp,
   Atom,
-  Compass
+  Compass,
+  Sparkles
 } from 'lucide-react';
 import { ACHIEVEMENTS_DATA } from '../data/schoolData';
 import { Achievement } from '../types';
@@ -41,7 +42,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
 
   const categories = [
     { id: 'all', label: 'All Honors' },
-    { id: 'board', label: 'Board Merit & 100% Results' },
+    { id: 'board', label: 'Board Merit & Results' },
     { id: 'science', label: 'Science & Innovation' },
     { id: 'scouts', label: 'Bharat Scouts & Guides' },
     { id: 'sports', label: 'Athletics & Sports' },
@@ -73,19 +74,19 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'board': return <GraduationCap className="w-5 h-5" />;
-      case 'science': return <Atom className="w-5 h-5" />;
-      case 'scouts': return <Compass className="w-5 h-5" />;
-      case 'sports': return <Trophy className="w-5 h-5" />;
-      case 'alumni': return <Users className="w-5 h-5" />;
-      default: return <Award className="w-5 h-5" />;
+      case 'board': return <GraduationCap className="w-4 h-4" />;
+      case 'science': return <Atom className="w-4 h-4" />;
+      case 'scouts': return <Compass className="w-4 h-4" />;
+      case 'sports': return <Trophy className="w-4 h-4" />;
+      case 'alumni': return <Users className="w-4 h-4" />;
+      default: return <Award className="w-4 h-4" />;
     }
   };
 
   return (
     <section 
       id="achievements" 
-      className={`py-20 relative transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative transition-colors duration-300 ${
         isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
       }`}
     >
@@ -96,9 +97,9 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Trophy className="w-3.5 h-3.5" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+            <Trophy className="w-3.5 h-3.5 text-amber-500" />
             <span>Honors, Accolades & Milestones</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -110,92 +111,92 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
         </div>
 
         {/* Top Highlight Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-10 sm:mb-12">
           
-          <div className={`p-5 rounded-2xl border transition-transform hover:-translate-y-1 ${
-            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'
+          <div className={`interactive-card p-4 sm:p-5 rounded-2xl border text-left ${
+            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-xs'
           }`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold shrink-0">
                 <TrendingUp className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-amber-500 dark:text-amber-400">98.4%</p>
-                <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>HSC Board Pass Rate</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-amber-500 dark:text-amber-400 tabular-nums">98.4%</p>
+                <p className={`text-[11px] sm:text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>HSC Board Pass Rate</p>
               </div>
             </div>
-            <p className={`mt-2.5 text-[11px] font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-              Top ranking center in Banaskantha District
+            <p className={`mt-2 text-[11px] sm:text-xs font-medium truncate ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Top ranking center in Banaskantha
             </p>
           </div>
 
-          <div className={`p-5 rounded-2xl border transition-transform hover:-translate-y-1 ${
-            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'
+          <div className={`interactive-card p-4 sm:p-5 rounded-2xl border text-left ${
+            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-xs'
           }`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-500 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-500 flex items-center justify-center font-bold shrink-0">
                 <Star className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-blue-500 dark:text-blue-400">99.85 PR</p>
-                <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>State Science Rank</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-blue-500 dark:text-blue-400 tabular-nums">99.85 PR</p>
+                <p className={`text-[11px] sm:text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>State Science Rank</p>
               </div>
             </div>
-            <p className={`mt-2.5 text-[11px] font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-              Multiple 100/100 scores in Physics & Maths
+            <p className={`mt-2 text-[11px] sm:text-xs font-medium truncate ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              100/100 Physics & Maths scores
             </p>
           </div>
 
-          <div className={`p-5 rounded-2xl border transition-transform hover:-translate-y-1 ${
-            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'
+          <div className={`interactive-card p-4 sm:p-5 rounded-2xl border text-left ${
+            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-xs'
           }`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold shrink-0">
                 <Medal className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-emerald-500 dark:text-emerald-400">14 Cadets</p>
-                <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Rajya Puraskar Awards</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-500 dark:text-emerald-400 tabular-nums">14 Cadets</p>
+                <p className={`text-[11px] sm:text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Rajya Puraskar</p>
               </div>
             </div>
-            <p className={`mt-2.5 text-[11px] font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-              Governor felicitated Bharat Scouts & Guides
+            <p className={`mt-2 text-[11px] sm:text-xs font-medium truncate ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Governor felicitated Scouts & Guides
             </p>
           </div>
 
-          <div className={`p-5 rounded-2xl border transition-transform hover:-translate-y-1 ${
-            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'
+          <div className={`interactive-card p-4 sm:p-5 rounded-2xl border text-left ${
+            isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-xs'
           }`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-500 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-500 flex items-center justify-center font-bold shrink-0">
                 <Users className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-purple-500 dark:text-purple-400">25,000+</p>
-                <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Global Alumni</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-purple-500 dark:text-purple-400 tabular-nums">25,000+</p>
+                <p className={`text-[11px] sm:text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Global Alumni</p>
               </div>
             </div>
-            <p className={`mt-2.5 text-[11px] font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-              Doctors, Engineers & Civil Leaders worldwide
+            <p className={`mt-2 text-[11px] sm:text-xs font-medium truncate ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              Doctors, Engineers & Civil Leaders
             </p>
           </div>
 
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none snap-x">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                className={`touch-target px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer snap-start active:scale-95 ${
                   isActive
-                    ? 'bg-amber-500 text-slate-950 font-bold shadow-md'
+                    ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/20'
                     : isDark
                       ? 'bg-slate-950/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'
                 }`}
               >
                 {cat.label}
@@ -205,15 +206,15 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
         </div>
 
         {/* Achievements Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {filteredAchievements.map((item) => {
             return (
               <div
                 key={item.id}
-                className={`flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1 ${
+                className={`interactive-card flex flex-col justify-between p-5 sm:p-6 rounded-2xl border transition-all duration-300 group text-left ${
                   isDark
                     ? 'bg-slate-950/80 border-slate-800 hover:border-amber-500/50 shadow-xl shadow-slate-950/40'
-                    : 'bg-white border-slate-200 hover:border-amber-500/50 shadow-sm hover:shadow-md'
+                    : 'bg-white border-slate-200 hover:border-amber-500/50 shadow-xs hover:shadow-md'
                 }`}
               >
                 <div>
@@ -223,7 +224,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
                       {getCategoryIcon(item.category)}
                       <span>{item.badge}</span>
                     </span>
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded ${
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded font-mono ${
                       isDark ? 'bg-slate-900 text-slate-400' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {item.year}
@@ -232,7 +233,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
 
                   {/* Title */}
                   <h3 className={`text-base sm:text-lg font-bold leading-snug mb-2 group-hover:text-amber-500 transition-colors ${
-                    isDark ? 'text-white' : 'text-slate-900'
+                    isDark ? 'text-white' : 'text-slate-950'
                   }`}>
                     {item.title}
                   </h3>
@@ -250,7 +251,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
                       </p>
                     </div>
                     {item.metric && (
-                      <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-amber-500 text-slate-950 shadow-sm">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-amber-500 text-slate-950 shadow-xs tabular-nums">
                         {item.metric}
                       </span>
                     )}
@@ -263,7 +264,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ theme 
                 </div>
 
                 {/* Card Footer */}
-                <div className={`pt-4 mt-4 border-t flex items-center justify-between text-[11px] font-medium ${
+                <div className={`pt-3.5 mt-4 border-t flex items-center justify-between text-[11px] font-medium ${
                   isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-500'
                 }`}>
                   <span className="flex items-center gap-1">

@@ -6,7 +6,8 @@ import {
   Clock, 
   Send, 
   Award,
-  Printer
+  Printer,
+  Sparkles
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { SCHOOL_INFO } from '../data/schoolData';
@@ -58,7 +59,6 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
 
       setSubmittedAppId(res.application_no || `SKM-2026-${Math.floor(1000 + Math.random() * 9000)}`);
       
-      // Trigger Confetti Celebration
       confetti({
         particleCount: 120,
         spread: 80,
@@ -106,7 +106,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
   return (
     <section 
       id="admissions" 
-      className={`py-20 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
         isDark ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'
       }`}
     >
@@ -117,8 +117,8 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Admissions 2026 – 2027</span>
           </div>
@@ -130,13 +130,13 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
           {/* Left Column: Admission Guidelines & Documents */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 text-left">
             
             {/* Quick Status Box */}
-            <div className={`p-6 rounded-3xl border shadow-xl backdrop-blur-md ${
+            <div className={`p-5 sm:p-6 rounded-3xl border shadow-xl backdrop-blur-md ${
               isDark 
                 ? 'bg-slate-950/90 border-amber-500/30 text-white' 
                 : 'bg-white border-slate-200 text-slate-900 shadow-slate-900/5'
@@ -156,14 +156,14 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
             </div>
 
             {/* Document Checklist */}
-            <div className={`p-6 rounded-3xl border shadow-xl ${
+            <div className={`p-5 sm:p-6 rounded-3xl border shadow-xl ${
               isDark ? 'bg-slate-950/90 border-slate-800' : 'bg-white border-slate-200 shadow-slate-900/5'
             }`}>
               <h3 className={`text-base font-bold mb-4 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 <FileText className="w-4 h-4 text-amber-500" />
                 <span>Required Documents Checklist</span>
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {documentChecklist.map((doc, idx) => (
                   <li key={idx} className={`flex items-start gap-2.5 text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                     <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
@@ -174,7 +174,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
             </div>
 
             {/* Scholarship Note */}
-            <div className={`p-6 rounded-3xl border shadow-xl ${
+            <div className={`p-5 sm:p-6 rounded-3xl border shadow-xl ${
               isDark 
                 ? 'bg-gradient-to-br from-slate-950 to-amber-950/40 border-amber-500/20' 
                 : 'bg-amber-50/70 border-amber-200 shadow-slate-900/5'
@@ -190,7 +190,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
               <div className="mt-4 flex items-center gap-3">
                 <button
                   onClick={scrollToAnnouncements}
-                  className="text-xs text-amber-600 dark:text-amber-400 hover:underline font-semibold underline-offset-4 cursor-pointer"
+                  className="touch-target text-xs text-amber-600 dark:text-amber-400 hover:underline font-semibold underline-offset-4 cursor-pointer"
                 >
                   View Scholarship Circulars &rarr;
                 </button>
@@ -201,7 +201,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
 
           {/* Right Column: Interactive Admission Form */}
           <div className="lg:col-span-7">
-            <div className={`rounded-3xl p-6 sm:p-10 border shadow-2xl backdrop-blur-xl text-left ${
+            <div className={`rounded-3xl p-5 sm:p-8 md:p-10 border shadow-2xl backdrop-blur-xl text-left ${
               isDark 
                 ? 'bg-slate-950 border-amber-500/40 text-white' 
                 : 'bg-white border-slate-200 text-slate-900 shadow-slate-900/5'
@@ -209,8 +209,8 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
               
               {submittedAppId ? (
                 /* Success State */
-                <div className="py-8 text-center space-y-5 animate-in zoom-in-95 duration-300">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/40">
+                <div className="py-8 text-center space-y-5 animate-scale-in">
+                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/40 animate-badge-glow">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
 
@@ -232,7 +232,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                   }`}>
                     <div className="flex items-center justify-between border-b pb-2 border-slate-200 dark:border-slate-800">
                       <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>Application Ref No:</span>
-                      <span className="font-mono font-bold text-amber-500 text-sm">{submittedAppId}</span>
+                      <span className="font-mono font-bold text-amber-500 text-sm tabular-nums">{submittedAppId}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>Applied Stream:</span>
@@ -244,24 +244,20 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>Contact Phone:</span>
-                      <span className="font-semibold">{formData.phone}</span>
+                      <span className="font-semibold tabular-nums">{formData.phone}</span>
                     </div>
                   </div>
 
                   <p className={`text-xs max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                    Please bring a printed copy or note this Reference ID when visiting the school office for document verification and interview.
+                    Please bring a printed copy or note this Reference ID when visiting the school office for document verification and counseling.
                   </p>
 
                   <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                     <button
                       onClick={handlePrint}
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs border transition-colors cursor-pointer ${
-                        isDark 
-                          ? 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700' 
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
-                      }`}
+                      className="touch-target inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs border transition-colors cursor-pointer active:scale-95 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white border-slate-300 dark:border-slate-700"
                     >
-                      <Printer className="w-4 h-4" />
+                      <Printer className="w-4 h-4 text-amber-500" />
                       <span>Print Acknowledgement</span>
                     </button>
 
@@ -284,7 +280,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                           message: ''
                         });
                       }}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer"
+                      className="touch-target inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer active:scale-95 shadow-md"
                     >
                       <span>Submit Another Application</span>
                     </button>
@@ -292,9 +288,9 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                 </div>
               ) : (
                 /* Application Form */
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                   <div className={`border-b pb-4 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
-                    <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                    <h3 className={`text-lg sm:text-xl font-bold ${isDark ? 'text-white' : 'text-slate-950'}`}>
                       Online Admission Inquiry Form
                     </h3>
                     <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -317,7 +313,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -334,7 +330,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -349,10 +345,10 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                       <select
                         value={formData.stream}
                         onChange={(e) => setFormData({ ...formData, stream: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs cursor-pointer ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 focus:border-amber-500 focus:bg-white'
                         }`}
                       >
                         <option value="11-science">Class 11 Science (Group A / Maths & Group B / Biology)</option>
@@ -371,10 +367,10 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                       <select
                         value={formData.gender}
                         onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
+                        className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs cursor-pointer ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 focus:border-amber-500 focus:bg-white'
                         }`}
                       >
                         <option value="Male">Male</option>
@@ -398,7 +394,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -416,13 +412,13 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
                   </div>
 
-                  {/* Village / Town & Previous School */}
+                  {/* Village / Town & Percentage */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
@@ -437,7 +433,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -454,7 +450,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                         className={`w-full px-3.5 py-2.5 rounded-xl border focus:outline-none text-xs ${
                           isDark 
                             ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-amber-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
+                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-amber-500 focus:bg-white'
                         }`}
                       />
                     </div>
@@ -469,7 +465,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                       id="needsScholarship"
                       checked={formData.needsScholarship}
                       onChange={(e) => setFormData({ ...formData, needsScholarship: e.target.checked })}
-                      className="mt-0.5 rounded border-slate-600 text-amber-500 focus:ring-amber-400"
+                      className="mt-0.5 rounded border-slate-600 text-amber-500 focus:ring-amber-400 cursor-pointer"
                     />
                     <label htmlFor="needsScholarship" className="text-xs cursor-pointer">
                       <span className={`font-semibold ${isDark ? 'text-amber-300' : 'text-amber-800'}`}>
@@ -485,7 +481,7 @@ export const AdmissionSection: React.FC<AdmissionSectionProps> = ({ theme = 'dar
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-xl shadow-amber-500/25 transition-all cursor-pointer disabled:opacity-70 active:scale-98"
+                    className="shimmer-btn touch-target w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-xl shadow-amber-500/25 transition-all cursor-pointer disabled:opacity-70 active:scale-98"
                   >
                     {isSubmitting ? (
                       <>

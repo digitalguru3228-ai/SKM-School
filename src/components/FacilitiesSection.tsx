@@ -52,7 +52,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
   return (
     <section 
       id="facilities" 
-      className={`py-20 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
         isDark ? 'bg-slate-950 text-white' : 'bg-slate-100/80 text-slate-900'
       }`}
     >
@@ -63,8 +63,8 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
             <Building2 className="w-3.5 h-3.5" />
             <span>Infrastructure & Learning Spaces</span>
           </div>
@@ -77,14 +77,14 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
         </div>
 
         {/* Facilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {facilities.map((facility) => {
             const imgSrc = facility.image_url || facility.image;
             return (
               <div 
                 key={facility.id}
                 onClick={() => setActiveFacilityModal(facility)}
-                className={`border rounded-2xl overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1.5 flex flex-col group cursor-pointer text-left ${
+                className={`interactive-card border rounded-2xl overflow-hidden shadow-sm transition-all duration-300 flex flex-col group cursor-pointer text-left ${
                   isDark 
                     ? 'bg-slate-900/80 border-slate-800 hover:border-amber-500/50 shadow-slate-950/40' 
                     : 'bg-white border-slate-200 hover:border-amber-500 shadow-xs hover:shadow-md'
@@ -98,6 +98,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                       alt={facility.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-500 bg-slate-800">
@@ -107,23 +108,23 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                   
                   {/* Top Badge */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md text-[11px] font-bold text-amber-300 border border-white/10">
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md text-[10px] sm:text-[11px] font-bold text-amber-300 border border-white/10">
                     {getFacilityIcon(facility.icon)}
                     <span>{facility.tag || 'Facility'}</span>
                   </div>
 
                   {/* Bottom Stats Overlay */}
                   <div className="absolute bottom-2.5 left-3 right-3">
-                    <span className="text-[11px] font-bold text-slate-100 bg-slate-950/90 px-2 py-0.5 rounded border border-white/10">
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-100 bg-slate-950/90 px-2 py-0.5 rounded border border-white/10 tabular-nums">
                       {facility.stats}
                     </span>
                   </div>
                 </div>
 
                 {/* Card Body */}
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <h3 className={`text-lg font-bold transition-colors leading-snug ${
+                    <h3 className={`text-base sm:text-lg font-bold transition-colors leading-snug ${
                       isDark ? 'text-white group-hover:text-amber-400' : 'text-slate-950 group-hover:text-amber-700'
                     }`}>
                       {facility.title}
@@ -131,7 +132,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                     <p className={`text-xs font-semibold mt-0.5 mb-2 ${isDark ? 'text-amber-400' : 'text-amber-700'}`}>
                       {facility.subtitle || facility.tag}
                     </p>
-                    <p className={`text-xs sm:text-sm line-clamp-3 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                    <p className={`text-xs leading-relaxed line-clamp-3 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                       {facility.description}
                     </p>
                   </div>
@@ -141,7 +142,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                     isDark ? 'border-slate-800 text-amber-400 group-hover:text-amber-300' : 'border-slate-200 text-amber-800 group-hover:text-amber-900'
                   }`}>
                     <span>Explore Key Specifications</span>
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-amber-500" />
                   </div>
                 </div>
 
@@ -152,8 +153,8 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
 
         {/* Deep Facility Detail Modal */}
         {activeFacilityModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-            <div className={`border rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto text-left ${
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-scale-in">
+            <div className={`border rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto text-left ${
               isDark 
                 ? 'bg-slate-900 border-amber-500/40 text-white' 
                 : 'bg-white border-slate-200 text-slate-900'
@@ -162,7 +163,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
               {/* Close Button */}
               <button 
                 onClick={() => setActiveFacilityModal(null)}
-                className={`absolute top-5 right-5 p-2 rounded-full transition-colors cursor-pointer ${
+                className={`touch-target absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-xl transition-colors cursor-pointer ${
                   isDark ? 'bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:text-slate-900'
                 }`}
                 aria-label="Close Facility Modal"
@@ -171,7 +172,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
               </button>
 
               {/* Modal Image */}
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-6 border border-slate-700">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-5 sm:mb-6 border border-slate-700">
                 {(activeFacilityModal.image_url || activeFacilityModal.image) ? (
                   <img 
                     src={activeFacilityModal.image_url || activeFacilityModal.image} 
@@ -190,22 +191,22 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                   <span className="px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">
                     {activeFacilityModal.tag}
                   </span>
-                  <span className="px-3 py-1 rounded-lg bg-slate-900/90 text-amber-300 font-semibold text-xs border border-amber-500/30">
+                  <span className="px-3 py-1 rounded-lg bg-slate-900/90 text-amber-300 font-semibold text-xs border border-amber-500/30 tabular-nums">
                     {activeFacilityModal.stats}
                   </span>
                 </div>
               </div>
 
               {/* Title & Subtitle */}
-              <h3 className={`text-2xl font-extrabold ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h3 className={`text-xl sm:text-2xl font-extrabold ${isDark ? 'text-white' : 'text-slate-950'}`}>
                 {activeFacilityModal.title}
               </h3>
-              <p className="text-sm font-bold text-amber-700 dark:text-amber-400 mt-1 mb-4">
+              <p className="text-xs sm:text-sm font-bold text-amber-700 dark:text-amber-400 mt-1 mb-3 sm:mb-4">
                 {activeFacilityModal.subtitle || activeFacilityModal.tag}
               </p>
 
               {/* Detailed Description */}
-              <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              <p className={`text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                 {activeFacilityModal.description}
               </p>
 
@@ -217,10 +218,10 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
                   <h4 className={`text-xs uppercase font-bold tracking-wider mb-3 flex items-center gap-1.5 ${
                     isDark ? 'text-slate-400' : 'text-slate-700'
                   }`}>
-                    <CheckCircle2 className="w-4 h-4 text-amber-600 dark:text-amber-500" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-500" />
                     Key Campus Infrastructure Features
                   </h4>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-2">
                     {(activeFacilityModal.key_features || activeFacilityModal.features || []).map((feat: string, idx: number) => (
                       <li key={idx} className={`flex items-start gap-2.5 text-xs sm:text-sm font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" />
@@ -235,7 +236,7 @@ export const FacilitiesSection: React.FC<FacilitiesSectionProps> = ({ theme = 'd
               <div className="mt-6 flex items-center justify-end">
                 <button
                   onClick={() => setActiveFacilityModal(null)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs hover:from-amber-300 hover:to-amber-400 transition-all cursor-pointer shadow-md"
+                  className="touch-target px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs hover:from-amber-300 hover:to-amber-400 transition-all cursor-pointer shadow-md active:scale-95"
                 >
                   Close Specification
                 </button>

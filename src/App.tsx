@@ -249,24 +249,24 @@ export default function App() {
       />
 
       {/* Floating Quick Action Drawer on Mobile/Desktop */}
-      <aside aria-label="Quick Access Bar" className="fixed bottom-5 right-5 z-40 flex items-center gap-2 pointer-events-none">
+      <aside aria-label="Quick Access Bar" className="fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-40 flex items-center gap-2 pointer-events-none">
         
         {/* Back to Top */}
         {showBackToTop && (
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="pointer-events-auto p-2.5 rounded-full bg-slate-800/90 dark:bg-slate-800/90 text-amber-400 hover:text-white hover:bg-slate-700 shadow-xl border border-slate-700 transition-all cursor-pointer animate-in fade-in"
+            className="touch-target pointer-events-auto p-2.5 rounded-2xl bg-slate-900/95 text-amber-400 hover:text-white hover:bg-slate-800 shadow-xl border border-slate-700 transition-all cursor-pointer animate-scale-in active:scale-95"
           >
             <ArrowUp className="w-4 h-4" />
           </button>
         )}
 
         {/* Theme Quick Switcher Pill & Staff Portal Link */}
-        <div className="pointer-events-auto flex items-center gap-1.5 p-1 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-amber-500/40 shadow-2xl">
+        <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-amber-500/40 shadow-2xl">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-slate-700 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="touch-target p-2 rounded-xl text-slate-700 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95"
             aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
             title={`Switch to ${isDark ? 'Light' : 'Dark'} Mode`}
           >
@@ -276,7 +276,7 @@ export default function App() {
           <button
             onClick={navigateToAdmin}
             id="staff-cms-btn"
-            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="touch-target p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95"
             title="School Staff CMS Login"
           >
             <Shield className="w-4 h-4 text-amber-500" />
@@ -285,11 +285,11 @@ export default function App() {
           <button
             onClick={handleOpenAdmission}
             id="floating-admission-btn"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-bold shadow-md transition-all cursor-pointer"
+            className="shimmer-btn touch-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 text-xs font-extrabold shadow-md transition-all cursor-pointer active:scale-95"
             title="Apply for Admission 2026-27"
           >
             <GraduationCap className="w-4 h-4" />
-            <span className="hidden sm:inline">Apply 2026–27</span>
+            <span className="hidden xs:inline">Apply 2026–27</span>
           </button>
         </div>
 
