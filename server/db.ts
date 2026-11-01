@@ -258,12 +258,21 @@ export interface DatabaseState {
   audit_logs: AuditLog[];
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const isVercel = Boolean(process.env.VERCEL);
+const DATA_DIR = isVercel ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'skm_database.json');
+const ORIGINAL_DB_FILE = path.join(process.cwd(), 'data', 'skm_database.json');
 
 // Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (isVercel && !fs.existsSync(DB_FILE) && fs.existsSync(ORIGINAL_DB_FILE)) {
+    fs.copyFileSync(ORIGINAL_DB_FILE, DB_FILE);
+  }
+} catch (e) {
+  console.warn('[DB] Storage directory initialization warning:', e);
 }
 
 function getInitialData(): DatabaseState {
